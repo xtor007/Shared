@@ -20,9 +20,21 @@ class ShareVC: UIViewController {
     
     @IBAction func share(_ sender: Any) {
         if let sender = sender as? UIButton {
-            print(sender.tag)
+            if sender.tag == 3 {
+                showMessage("This button don't do anything")
+            }
         }
     }
     
-
+    private func showMessage(_ message: String) {
+        let alertVC = UIAlertController(
+                    title: "Shared",
+                    message: message,
+                    preferredStyle: .alert
+        )
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertVC.addAction(action)
+        self.present(alertVC, animated: true, completion: nil)
+    }
+    
 }

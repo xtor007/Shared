@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Social
 
 class ShareVC: UIViewController {
     
@@ -20,10 +21,51 @@ class ShareVC: UIViewController {
     
     @IBAction func share(_ sender: Any) {
         if let sender = sender as? UIButton {
-            if sender.tag == 3 {
+            switch sender.tag {
+            case 0:
+                postToTwitter(textViews[sender.tag].text)
+            case 1:
+                postToFacebook(textViews[sender.tag].text)
+            case 2:
+                shareOthers(textViews[sender.tag].text)
+            case 3:
                 showMessage("This button don't do anything")
+            default:
+                showMessage("Something isn't good")
             }
         }
+    }
+    
+    private func postToTwitter(_ message: String) {
+        if SLComposeViewController.isAvailable(forServiceType: SLServiceTypeTwitter) { //only iOS 10-
+            if let twitterVC = SLComposeViewController(forServiceType: SLServiceTypeTwitter) {
+                twitterVC.setInitialText(message)
+                self.present(twitterVC, animated: true)
+            } else {
+                showMessage("You aren't log in Twitter")
+            }
+        } else {
+            showMessage("You aren't log in Twitter")
+        }
+    }
+    
+    private func postToFacebook(_ message: String) {
+        if SLComposeViewController.isAvailable(forServiceType: SLServiceTypeFacebook) { //only iOS 10-
+            if let facebookVC = SLComposeViewController(forServiceType: SLServiceTypeFacebook) {
+                facebookVC.setInitialText(message)
+                self.present(facebookVC, animated: true)
+            } else {
+                showMessage("You aren't log in Facebook")
+            }
+        } else {
+            showMessage("You aren't log in Facebook")
+        }
+    }
+    
+    private func shareOthers(_ message: String) {
+        let activityVC = UIActivityViewController(activityItems: [message], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view
+        self.present(activityVC, animated: true, completion: nil)
     }
     
     private func showMessage(_ message: String) {

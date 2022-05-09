@@ -42,10 +42,10 @@ class ShareVC: UIViewController {
                 twitterVC.setInitialText(message)
                 self.present(twitterVC, animated: true)
             } else {
-                showMessage("You aren't log in Twitter")
+                showMessage("You aren't log in Twitter or your iOS are 10-")
             }
         } else {
-            showMessage("You aren't log in Twitter")
+            showMessage("You aren't log in Twitter or your iOS are 10-")
         }
     }
     
@@ -55,10 +55,10 @@ class ShareVC: UIViewController {
                 facebookVC.setInitialText(message)
                 self.present(facebookVC, animated: true)
             } else {
-                showMessage("You aren't log in Facebook")
+                showMessage("You aren't log in Facebook or your iOS are 10-")
             }
         } else {
-            showMessage("You aren't log in Facebook")
+            showMessage("You aren't log in Facebook or your iOS are 10-")
         }
     }
     
